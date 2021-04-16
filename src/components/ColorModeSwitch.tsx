@@ -22,7 +22,7 @@ export const ColorModeSwitch = () => {
         onClick={toggleColorMode}
       >
         <VisuallyHidden>Color Mode Toggle</VisuallyHidden>
-        {isDark ? <SunIcon /> : <MoonIcon />}
+        {isDark ? <SunIcon color="white" /> : <MoonIcon color="gray.300" />}
       </Button>
     </Tooltip>
   );
