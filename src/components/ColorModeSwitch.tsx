@@ -14,13 +14,7 @@ export const ColorModeSwitch = () => {
   const isDark = colorMode === 'dark';
   return (
     <Tooltip hasArrow label="toggle color mode">
-      <Button
-        bg=""
-        position="fixed"
-        top="1rem"
-        right="1rem"
-        onClick={toggleColorMode}
-      >
+      <Button bg="" onClick={toggleColorMode}>
         <VisuallyHidden>Color Mode Toggle</VisuallyHidden>
         {isDark ? <SunIcon color="white" /> : <MoonIcon color="gray.300" />}
       </Button>
