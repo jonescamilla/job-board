@@ -5,10 +5,8 @@ import { Box, useColorMode, useColorModeValue } from '@chakra-ui/react';
  * @param {any} props any children you wish to render within Container or JSX attributes you wish to add
  */
 export const Container = (props: any) => {
-  const { colorMode } = useColorMode();
-
   const bg = useColorModeValue('bg.light', 'bg.dark');
-  const color = useColorModeValue('white', 'black');
+  const color = useColorModeValue('black', 'white');
 
   return (
     <Box
