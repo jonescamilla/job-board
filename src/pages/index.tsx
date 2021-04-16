@@ -1,21 +1,9 @@
-import {
-  Box,
-  Center,
-  Flex,
-  Heading,
-  ListItem,
-  OrderedList,
-  position,
-  SimpleGrid,
-  Skeleton,
-  SkeletonCircle,
-  SkeletonText,
-  UnorderedList,
-} from '@chakra-ui/react';
+import { Box, Center, Flex, Heading, SimpleGrid } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import GHJobsApi from '../api';
 import { ColorModeSwitch } from '../components/ColorModeSwitch';
 import { Container } from '../components/Container';
+import { FilterBar } from '../components/FilterBar';
 import { JobCard } from '../components/JobCard';
 import { Position } from '../types';
 
@@ -32,28 +20,6 @@ const Index = () => {
       });
     });
   }, []);
-  const skeletons = () => {
-    const emptyArr = new Array(12).fill(undefined);
-    const results = emptyArr.map(() => {
-      return (
-        <Skeleton>
-          <Box
-            maxW="xs"
-            boxShadow="md"
-            minH="3xs"
-            borderRadius="lg"
-            m="3"
-            mb="5"
-            mt="5"
-          >
-            <Box></Box>
-            <SkeletonCircle position="relative" top="-20px" left="30px" />
-          </Box>
-        </Skeleton>
-      );
-    });
-    return results;
-  };
 
   return (
     <Container>
@@ -64,20 +30,27 @@ const Index = () => {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Heading size="md" as="h1">
+          <Heading color="white" size="md" as="h1">
             devjobs
           </Heading>
           <ColorModeSwitch />
         </Flex>
       </Box>
+      <FilterBar />
       <Center>
         <SimpleGrid maxW="1000" columns={3} spacingY="10" spacingX="6">
           {loading
             ? new Array(15)
                 .fill(undefined)
-                .map(() => <JobCard loading={loading} />)
+                .map((_item, index) => (
+                  <JobCard key={`skeleton-card-${index}`} loading={loading} />
+                ))
             : results?.map((position) => (
-                <JobCard loading={loading} position={position} />
+                <JobCard
+                  key={position.id}
+                  loading={loading}
+                  position={position}
+                />
               ))}
         </SimpleGrid>
       </Center>
