@@ -1,9 +1,9 @@
-import { Box, Center, Flex, Heading, SimpleGrid } from '@chakra-ui/react';
+import { Center, SimpleGrid } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import GHJobsApi from '../api';
-import { ColorModeSwitch } from '../components/ColorModeSwitch';
 import { Container } from '../components/Container';
 import { FilterBar } from '../components/FilterBar';
+import Header from '../components/Header';
 import { JobCard } from '../components/JobCard';
 import { Position } from '../types';
 
@@ -11,10 +11,16 @@ const Index = () => {
   const [results, setResults] = useState<null | Position[]>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
+  const setFiltered = (results: Position[]) => setResults(results);
+  const setLoad = (bool: boolean) => setLoading(bool);
+
   useEffect(() => {
     setLoading(true);
+    // setTimeout only in place to demonstrate skeletons
     setTimeout(() => {
-      GHJobsApi.positions({}).then((res) => {
+      // make a call to the api passing no params to get unfiltered results
+      GHJobsApi.positions().then((res) => {
+        // set the values returned to state
         setResults(res);
         setLoading(false);
       });
@@ -23,29 +29,19 @@ const Index = () => {
 
   return (
     <Container>
-      <Box pt="20px" mb="30px" bg="brand.purple" h="70px">
-        <Flex
-          pl="60px"
-          pr="60px"
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Heading color="white" size="md" as="h1">
-            devjobs
-          </Heading>
-          <ColorModeSwitch />
-        </Flex>
-      </Box>
-      <FilterBar />
+      <Header />
+      <FilterBar setFiltered={setFiltered} setLoad={setLoad} />
       <Center>
         <SimpleGrid maxW="1000" columns={3} spacingY="10" spacingX="6">
           {loading
-            ? new Array(15)
+            ? // if we are `loading` render an array of boxes with skeletons
+              new Array(15)
                 .fill(undefined)
                 .map((_item, index) => (
                   <JobCard key={`skeleton-card-${index}`} loading={loading} />
                 ))
-            : results?.map((position) => (
+            : // else render an array of boxes with position information
+              results?.map((position) => (
                 <JobCard
                   key={position.id}
                   loading={loading}
