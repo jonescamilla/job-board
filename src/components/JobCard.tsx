@@ -16,8 +16,10 @@ export const JobCard = ({
   loading: boolean;
   position?: Position;
 }) => {
+  // use native chakra theme support to manage theme colors
   const cardBg = useColorModeValue('contentBg.light', 'contentBg.dark');
 
+  // conditionally set values based on if whether we receive a proper position
   const { company_logo, created_at, type, company, title, location } = position
     ? position
     : {
