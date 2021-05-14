@@ -43,4 +43,4 @@ Job Board utilizing GitHub Jobs Api, React and Typescript
 
 ## Basic demo
 
-![video](https://user-images.githubusercontent.com/61066815/118323117-03288700-b4b5-11eb-8501-8f474e9ee097.mov)
+https://user-images.githubusercontent.com/61066815/118323117-03288700-b4b5-11eb-8501-8f474e9ee097.mov
